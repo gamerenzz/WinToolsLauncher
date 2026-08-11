@@ -20,7 +20,7 @@ namespace WinToolsLauncher
                 {
                     FileName = fileName,
                     Arguments = arguments,
-                    UseShellExecute = true
+                    UseShellExecute = true // 必须为 true
                 };
                 Process.Start(psi);
             }
@@ -36,11 +36,11 @@ namespace WinToolsLauncher
             RunCmd("control.exe");
         }
 
-        // 2. 设备和打印机
+        // 2. 设备和打印机（已修复报错）
         private void BtnPrinters_Click(object sender, RoutedEventArgs e)
         {
-            // Windows 10/11 打开传统设备和打印机的 Shell 命令
-            RunCmd("explorer.exe", "shell:::{A8A91A66-3A7D-4421-B722-A6242546540F}");
+            // 使用 control.exe 的规范名称打开，兼容 Win10/Win11 且不会报错
+            RunCmd("control.exe", "/name Microsoft.DevicesAndPrinters");
         }
 
         // 3. 网络连接 (ncpa.cpl)
