@@ -1,0 +1,27 @@
+name: Build Executable
+
+on:
+
+  workflow_dispatch: # 允许手动在 GitHub 界面点击触发编译
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 设置 .NET 环境
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # 使用最新的 dotnet SDK 编译 net472 目标
+
+    - name: 编译项目 (.NET Framework 4.7.2)
+      run: dotnet build WinToolsLauncher.csproj -c Release -o ./build_output
+
+    - name: 上传构建产物 (EXE)
+      uses: actions/upload-artifact@v4
+      with:
+        name: WinToolsLauncher-exe
+        path: ./build_output/
