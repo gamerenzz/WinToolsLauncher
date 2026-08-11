@@ -1,0 +1,70 @@
+using System;
+using System.Diagnostics;
+using System.Windows;
+
+namespace WinToolsLauncher
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        // 封装启动进程的方法
+        private void RunCmd(string fileName, string arguments = "")
+        {
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = fileName,
+                    Arguments = arguments,
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("打开失败: " + ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // 1. 控制面板
+        private void BtnControlPanel_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("control.exe");
+        }
+
+        // 2. 设备和打印机
+        private void BtnPrinters_Click(object sender, RoutedEventArgs e)
+        {
+            // Windows 10/11 打开传统设备和打印机的 Shell 命令
+            RunCmd("explorer.exe", "shell:::{A8A91A66-3A7D-4421-B722-A6242546540F}");
+        }
+
+        // 3. 网络连接 (ncpa.cpl)
+        private void BtnNetwork_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("ncpa.cpl");
+        }
+
+        // 4. 设备管理器
+        private void BtnDevMgmt_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("devmgmt.msc");
+        }
+
+        // 5. Win10 UWP 设置
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("ms-settings:");
+        }
+
+        // 6. 任务管理器
+        private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("taskmgr.exe");
+        }
+    }
+}
