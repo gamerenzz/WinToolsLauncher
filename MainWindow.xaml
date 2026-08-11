@@ -1,0 +1,23 @@
+<Window x:Class="WinToolsLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Windows 系统工具快捷打开器" Height="350" Width="450"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="点击下方按钮快速打开系统设置：" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <UniformGrid Grid.Row="1" Columns="2" Rows="3">
+            <Button Content="打开 控制面板" Margin="5" Click="BtnControlPanel_Click" Background="#E1E1E1" FontSize="14"/>
+            <Button Content="打开 设备和打印机" Margin="5" Click="BtnPrinters_Click" Background="#E1E1E1" FontSize="14"/>
+            <Button Content="打开 网络连接" Margin="5" Click="BtnNetwork_Click" Background="#E1E1E1" FontSize="14"/>
+            <Button Content="打开 设备管理器" Margin="5" Click="BtnDevMgmt_Click" Background="#E1E1E1" FontSize="14"/>
+            <Button Content="打开 Win10设置" Margin="5" Click="BtnSettings_Click" Background="#E1E1E1" FontSize="14"/>
+            <Button Content="打开 任务管理器" Margin="5" Click="BtnTaskMgr_Click" Background="#E1E1E1" FontSize="14"/>
+        </UniformGrid>
+    </Grid>
+</Window>
