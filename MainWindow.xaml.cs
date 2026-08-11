@@ -11,7 +11,7 @@ namespace WinToolsLauncher
             InitializeComponent();
         }
 
-        // 封装启动进程的方法
+        // 通用启动方法
         private void RunCmd(string fileName, string arguments = "")
         {
             try
@@ -20,7 +20,7 @@ namespace WinToolsLauncher
                 {
                     FileName = fileName,
                     Arguments = arguments,
-                    UseShellExecute = true // 必须为 true
+                    UseShellExecute = true
                 };
                 Process.Start(psi);
             }
@@ -36,11 +36,25 @@ namespace WinToolsLauncher
             RunCmd("control.exe");
         }
 
-        // 2. 设备和打印机（已修复报错）
+        // 2. 经典版 设备和打印机 (完美解决报错与Win11强制重定向)
         private void BtnPrinters_Click(object sender, RoutedEventArgs e)
         {
-            // 使用 control.exe 的规范名称打开，兼容 Win10/Win11 且不会报错
-            RunCmd("control.exe", "/name Microsoft.DevicesAndPrinters");
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    // 使用 cmd 的 start 命令直接启动 shell GUID，可以无视 Win11 的重定向限制
+                    Arguments = "/c start shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}",
+                    CreateNoWindow = true,     // 不显示 CMD 命令行黑窗口
+                    UseShellExecute = false
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("打开失败: " + ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // 3. 网络连接 (ncpa.cpl)
@@ -55,7 +69,7 @@ namespace WinToolsLauncher
             RunCmd("devmgmt.msc");
         }
 
-        // 5. Win10 UWP 设置
+        // 5. Win10/11 新版设置
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("ms-settings:");
