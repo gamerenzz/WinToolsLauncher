@@ -1,7 +1,7 @@
 <Window x:Class="WinToolsLauncher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Windows 系统工具快捷打开器" Height="400" Width="520"
+        Title="Windows 系统工具快捷打开器" Height="420" Width="450"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -11,12 +11,13 @@
 
         <TextBlock Text="点击下方按钮快速打开系统设置：" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
 
-        <UniformGrid Grid.Row="1" Columns="3" Rows="3">
+        <UniformGrid Grid.Row="1" Columns="2" Rows="5">
             <Button Content="控制面板" Margin="4" Click="BtnControlPanel_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="设备和打印机" Margin="4" Click="BtnPrinters_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="网络连接" Margin="4" Click="BtnNetwork_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="设备管理器" Margin="4" Click="BtnDevMgmt_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="声音控制面板" Margin="4" Click="BtnSound_Click" Background="#E1E1E1" FontSize="13"/>
+            <Button Content="电源选项 (经典)" Margin="4" Click="BtnPower_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="高级防火墙" Margin="4" Click="BtnFirewall_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="计算机管理" Margin="4" Click="BtnCompMgmt_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="Win10/11设置" Margin="4" Click="BtnSettings_Click" Background="#E1E1E1" FontSize="13"/>
