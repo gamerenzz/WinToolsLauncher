@@ -68,31 +68,37 @@ namespace WinToolsLauncher
             RunCmd("devmgmt.msc");
         }
 
-        // 5. 声音设置 (mmsys.cpl) - 新增
+        // 5. 声音设置 (mmsys.cpl)
         private void BtnSound_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("mmsys.cpl");
         }
 
-        // 6. 高级安全防火墙 (wf.msc) - 新增
+        // 6. 经典电源选项 (powercfg.cpl) - 新增
+        private void BtnPower_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("powercfg.cpl");
+        }
+
+        // 7. 高级安全防火墙 (wf.msc)
         private void BtnFirewall_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("wf.msc");
         }
 
-        // 7. 计算机管理 (compmgmt.msc) - 新增
+        // 8. 计算机管理 (compmgmt.msc)
         private void BtnCompMgmt_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("compmgmt.msc");
         }
 
-        // 8. Win10/11 设置
+        // 9. Win10/11 设置
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("ms-settings:");
         }
 
-        // 9. 任务管理器
+        // 10. 任务管理器
         private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("taskmgr.exe");
