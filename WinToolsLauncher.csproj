@@ -6,6 +6,10 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>WinToolsLauncher</RootNamespace>
     <AssemblyName>WinToolsLauncher</AssemblyName>
+
+    <!-- 优化：不生成 pdb 调试符号文件，生成干净的单文件 -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
 </Project>
