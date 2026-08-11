@@ -11,7 +11,7 @@ namespace WinToolsLauncher
             InitializeComponent();
         }
 
-        // 通用启动方法
+        // 通用进程启动方法
         private void RunCmd(string fileName, string arguments = "")
         {
             try
@@ -36,7 +36,7 @@ namespace WinToolsLauncher
             RunCmd("control.exe");
         }
 
-        // 2. 经典版 设备和打印机 (完美解决报错与Win11强制重定向)
+        // 2. 经典版 设备和打印机
         private void BtnPrinters_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -44,9 +44,8 @@ namespace WinToolsLauncher
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    // 使用 cmd 的 start 命令直接启动 shell GUID，可以无视 Win11 的重定向限制
                     Arguments = "/c start shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}",
-                    CreateNoWindow = true,     // 不显示 CMD 命令行黑窗口
+                    CreateNoWindow = true,
                     UseShellExecute = false
                 };
                 Process.Start(psi);
@@ -63,19 +62,37 @@ namespace WinToolsLauncher
             RunCmd("ncpa.cpl");
         }
 
-        // 4. 设备管理器
+        // 4. 设备管理器 (devmgmt.msc)
         private void BtnDevMgmt_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("devmgmt.msc");
         }
 
-        // 5. Win10/11 新版设置
+        // 5. 声音设置 (mmsys.cpl) - 新增
+        private void BtnSound_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("mmsys.cpl");
+        }
+
+        // 6. 高级安全防火墙 (wf.msc) - 新增
+        private void BtnFirewall_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("wf.msc");
+        }
+
+        // 7. 计算机管理 (compmgmt.msc) - 新增
+        private void BtnCompMgmt_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("compmgmt.msc");
+        }
+
+        // 8. Win10/11 设置
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("ms-settings:");
         }
 
-        // 6. 任务管理器
+        // 9. 任务管理器
         private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("taskmgr.exe");
