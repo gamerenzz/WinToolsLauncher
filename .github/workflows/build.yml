@@ -17,26 +17,18 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: 检查并自动生成/下载图标
+    - name: 下载高品质 Windows 工具图标
       shell: powershell
       run: |
         if (-not (Test-Path "app.ico")) {
-            Write-Host "未找到自定义 app.ico，正在自动配置默认 Windows 设置齿轮图标..."
+            Write-Host "正在下载默认系统设置图标..."
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             $iconUrl = "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Settings/ICONS/ico/ic_fluent_settings_24_regular.ico"
             try {
-                Invoke-WebRequest -Uri $iconUrl -OutFile "app.ico"
+                Invoke-WebRequest -Uri $iconUrl -OutFile "app.ico" -TimeoutSec 15
+                Write-Host "图标下载成功！"
             } catch {
-                # 备用方案：如果网络异常，使用 PowerShell 动态绘制图标
-                Add-Type -AssemblyName System.Drawing
-                $bmp = New-Object System.Drawing.Bitmap(64, 64)
-                $g = [System.Drawing.Graphics]::FromImage($bmp)
-                $g.Clear([System.Drawing.Color]::Transparent)
-                $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(0, 120, 215))
-                $g.FillEllipse($brush, 4, 4, 56, 56)
-                $ico = [System.Drawing.Icon]::FromHandle($bmp.GetHicon())
-                $fs = [System.IO.File]::Create("app.ico")
-                $ico.Save($fs)
-                $fs.Close()
+                Write-Host "网络超时，跳过图标配置，确保软件正常编译运行。"
             }
         }
 
