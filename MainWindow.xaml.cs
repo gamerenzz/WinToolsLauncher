@@ -98,19 +98,37 @@ namespace WinToolsLauncher
             RunCmd("gpedit.msc");
         }
 
-        // 10. BitLocker 驱动器加密 - 新增
+        // 10. BitLocker 驱动器加密
         private void BtnBitLocker_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("control.exe", "/name Microsoft.BitLockerDriveEncryption");
         }
 
-        // 11. 程序和功能/卸载 (appwiz.cpl) - 新增凑整
+        // 11. 程序和功能/卸载 (appwiz.cpl)
         private void BtnAppWiz_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("appwiz.cpl");
         }
 
-        // 12. 任务管理器
+        // 12. 远程桌面 (mstsc.exe) - 新增
+        private void BtnRdp_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("mstsc.exe");
+        }
+
+        // 13. 系统属性/环境变量 (sysdm.cpl) - 新增凑整
+        private void BtnSysDm_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("sysdm.cpl");
+        }
+
+        // 14. 服务管理 (services.msc) - 新增凑整
+        private void BtnServices_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("services.msc");
+        }
+
+        // 15. 任务管理器
         private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("taskmgr.exe");
