@@ -17,6 +17,29 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: 检查并自动生成/下载图标
+      shell: powershell
+      run: |
+        if (-not (Test-Path "app.ico")) {
+            Write-Host "未找到自定义 app.ico，正在自动配置默认 Windows 设置齿轮图标..."
+            $iconUrl = "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Settings/ICONS/ico/ic_fluent_settings_24_regular.ico"
+            try {
+                Invoke-WebRequest -Uri $iconUrl -OutFile "app.ico"
+            } catch {
+                # 备用方案：如果网络异常，使用 PowerShell 动态绘制图标
+                Add-Type -AssemblyName System.Drawing
+                $bmp = New-Object System.Drawing.Bitmap(64, 64)
+                $g = [System.Drawing.Graphics]::FromImage($bmp)
+                $g.Clear([System.Drawing.Color]::Transparent)
+                $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(0, 120, 215))
+                $g.FillEllipse($brush, 4, 4, 56, 56)
+                $ico = [System.Drawing.Icon]::FromHandle($bmp.GetHicon())
+                $fs = [System.IO.File]::Create("app.ico")
+                $ico.Save($fs)
+                $fs.Close()
+            }
+        }
+
     - name: 编译项目 (.NET Framework 4.7.2)
       run: dotnet build WinToolsLauncher.csproj -c Release -o ./build_output
 
@@ -24,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: WinToolsLauncher
-        path: ./build_output/WinToolsLauncher.exe # 仅打包单独的 exe 文件
+        path: ./build_output/WinToolsLauncher.exe
