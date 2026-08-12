@@ -7,6 +7,9 @@
     <RootNamespace>WinToolsLauncher</RootNamespace>
     <AssemblyName>WinToolsLauncher</AssemblyName>
 
+    <!-- 指定生成的 .exe 软件图标 -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
+
     <!-- 优化：不生成 pdb 调试符号文件，生成干净的单文件 -->
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
