@@ -17,12 +17,35 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: 纯本地离线生成默认工具图标 (无语法错误版)
+    - name: 本地绘图引擎生成专属 app.ico 图标
       shell: powershell
       run: |
         if (-not (Test-Path "app.ico")) {
-            $b64 = "AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA8AAAAP//AAAA/wD/AP//AAD///8ACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIBAgICAgICAgICAACAAgICAgICAgIBAACAAgICAgICAgAAACACAgICAgIBAACAAAAgAgIBAAAAAAIAAAACAgEAAAAAAgAAAAICAEAgICAIBAAAAAAAACAgCAAAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIACAgAAAAAAAACAAgIAAAAAAAAAAgAICAAAAAAAAAAgAAICAgAAAAAAAIAAAAICAgACAAAAAAAAAACAgICAAAAACAAICAgICAgIAAAACAgICAgACAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
-            [System.IO.File]::WriteAllBytes("app.ico", [System.Convert]::FromBase64String($b64))
+            Write-Host "正在调用原生 GDI 引擎绘制 app.ico 图标..."
+            Add-Type -AssemblyName System.Drawing
+            $bmp = New-Object System.Drawing.Bitmap 32, 32
+            $g = [System.Drawing.Graphics]::FromImage($bmp)
+            
+            # 绘制蓝底圆角高光背景
+            $rect = New-Object System.Drawing.Rectangle 0, 0, 32, 32
+            $brushBg = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(0, 120, 215))
+            $g.FillRectangle($brushBg, $rect)
+            
+            # 绘制白色 "W" 字母（代表 Windows 工具）
+            $font = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
+            $brushText = [System.Drawing.Brushes]::White
+            $g.DrawString("W", $font, $brushText, 2, -1)
+            
+            $g.Dispose()
+            
+            # 保存为标准 .ico 文件
+            $hIcon = $bmp.GetHicon()
+            $icon = [System.Drawing.Icon]::FromHandle($hIcon)
+            $stream = [System.IO.File]::Create("app.ico")
+            $icon.Save($stream)
+            $stream.Close()
+            $bmp.Dispose()
+            Write-Host "图标生成完毕！"
         }
 
     - name: 编译项目 (.NET Framework 4.7.2)
