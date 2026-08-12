@@ -74,7 +74,7 @@ namespace WinToolsLauncher
             RunCmd("mmsys.cpl");
         }
 
-        // 6. 经典电源选项 (powercfg.cpl) - 新增
+        // 6. 经典电源选项 (powercfg.cpl)
         private void BtnPower_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("powercfg.cpl");
@@ -92,10 +92,10 @@ namespace WinToolsLauncher
             RunCmd("compmgmt.msc");
         }
 
-        // 9. Win10/11 设置
-        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        // 9. 组策略编辑器 (gpedit.msc) - 替换为组策略
+        private void BtnGroupPolicy_Click(object sender, RoutedEventArgs e)
         {
-            RunCmd("ms-settings:");
+            RunCmd("gpedit.msc");
         }
 
         // 10. 任务管理器
