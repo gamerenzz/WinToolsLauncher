@@ -92,13 +92,25 @@ namespace WinToolsLauncher
             RunCmd("compmgmt.msc");
         }
 
-        // 9. 组策略编辑器 (gpedit.msc) - 替换为组策略
+        // 9. 组策略编辑器 (gpedit.msc)
         private void BtnGroupPolicy_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("gpedit.msc");
         }
 
-        // 10. 任务管理器
+        // 10. BitLocker 驱动器加密 - 新增
+        private void BtnBitLocker_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("control.exe", "/name Microsoft.BitLockerDriveEncryption");
+        }
+
+        // 11. 程序和功能/卸载 (appwiz.cpl) - 新增凑整
+        private void BtnAppWiz_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("appwiz.cpl");
+        }
+
+        // 12. 任务管理器
         private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("taskmgr.exe");
