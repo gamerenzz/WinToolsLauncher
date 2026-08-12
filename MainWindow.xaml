@@ -20,7 +20,7 @@
             <Button Content="电源选项 (经典)" Margin="4" Click="BtnPower_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="高级防火墙" Margin="4" Click="BtnFirewall_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="计算机管理" Margin="4" Click="BtnCompMgmt_Click" Background="#E1E1E1" FontSize="13"/>
-            <Button Content="Win10/11设置" Margin="4" Click="BtnSettings_Click" Background="#E1E1E1" FontSize="13"/>
+            <Button Content="组策略编辑器" Margin="4" Click="BtnGroupPolicy_Click" Background="#E1E1E1" FontSize="13"/>
             <Button Content="任务管理器" Margin="4" Click="BtnTaskMgr_Click" Background="#E1E1E1" FontSize="13"/>
         </UniformGrid>
     </Grid>
