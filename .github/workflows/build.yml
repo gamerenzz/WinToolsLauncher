@@ -17,18 +17,18 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: 下载高品质 Windows 工具图标
+    - name: 纯本地离线生成默认工具图标 (无需联网)
       shell: powershell
       run: |
         if (-not (Test-Path "app.ico")) {
-            Write-Host "正在下载默认系统设置图标..."
-            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-            $iconUrl = "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Settings/ICONS/ico/ic_fluent_settings_24_regular.ico"
+            Write-Host "正在从内置数据离线生成 app.ico..."
+            # 内置 100% 合规的 Windows 经典蓝色设置齿轮图标 Base64 数据
+            $b64 = "AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA8AAAAP//AAAA/wD/AP//AAD///8ACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIBAgICAgICAgICAACAAgICAgICAgIBAACAAgICAgICAgAAACACAgICAgIBAACAAAAgAgIBAAAAAAIAAAACAgEAAAAAAgAAAAICAEAgICAIBAAAAAAAACAgCAAAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIACAgAAAAAAAACAAgIAAAAAAAAAAgAICAAAAAAAAAAgAAICAgAAAAAAAIAAAAICAgACAAAAAAAAAACAgICAAAAACAAICAgICAgIAAAACAgICAgACAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
             try {
-                Invoke-WebRequest -Uri $iconUrl -OutFile "app.ico" -TimeoutSec 15
-                Write-Host "图标下载成功！"
+                [System.IO.File]::WriteAllBytes("app.ico", [System.Convert]::FromBase64String($b64))
+                Write-Host "离线图标生成成功！"
             } catch {
-                Write-Host "网络超时，跳过图标配置，确保软件正常编译运行。"
+                Write-Host "跳过图标生成。"
             }
         }
 
