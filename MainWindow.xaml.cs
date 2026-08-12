@@ -104,25 +104,37 @@ namespace WinToolsLauncher
             RunCmd("control.exe", "/name Microsoft.BitLockerDriveEncryption");
         }
 
-        // 11. 安装的应用 (新版设置) - 新增
+        // 11. 桌面图标设置 - 新增
+        private void BtnDesktopIcons_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("rundll32.exe", "shell32.dll,Control_RunDLL desk.cpl,,0");
+        }
+
+        // 12. 用户账户设置 (control userpasswords2) - 新增
+        private void BtnUserAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            RunCmd("control.exe", "userpasswords2");
+        }
+
+        // 13. 安装的应用 (新版设置)
         private void BtnModernApps_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("ms-settings:appsfeatures");
         }
 
-        // 12. 程序和功能 (旧版控制面板卸载)
+        // 14. 程序和功能 (旧版控制面板卸载)
         private void BtnAppWiz_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("appwiz.cpl");
         }
 
-        // 13. 远程桌面 (mstsc.exe)
+        // 15. 远程桌面 (mstsc.exe)
         private void BtnRdp_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("mstsc.exe");
         }
 
-        // 14. 任务管理器
+        // 16. 任务管理器
         private void BtnTaskMgr_Click(object sender, RoutedEventArgs e)
         {
             RunCmd("taskmgr.exe");
