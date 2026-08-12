@@ -17,19 +17,12 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: 纯本地离线生成默认工具图标 (无需联网)
+    - name: 纯本地离线生成默认工具图标 (无语法错误版)
       shell: powershell
       run: |
         if (-not (Test-Path "app.ico")) {
-            Write-Host "正在从内置数据离线生成 app.ico..."
-            # 内置 100% 合规的 Windows 经典蓝色设置齿轮图标 Base64 数据
             $b64 = "AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA8AAAAP//AAAA/wD/AP//AAD///8ACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIBAgICAgICAgICAACAAgICAgICAgIBAACAAgICAgICAgAAACACAgICAgIBAACAAAAgAgIBAAAAAAIAAAACAgEAAAAAAgAAAAICAEAgICAIBAAAAAAAACAgCAAAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIACAgAAAAAAAACAAgIAAAAAAAAAAgAICAAAAAAAAAAgAAICAgAAAAAAAIAAAAICAgACAAAAAAAAAACAgICAAAAACAAICAgICAgIAAAACAgICAgACAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
-            try {
-                [System.IO.File]::WriteAllBytes("app.ico", [System.Convert]::FromBase64String($b64))
-                Write-Host "离线图标生成成功！"
-            } catch {
-                Write-Host "跳过图标生成。"
-            }
+            [System.IO.File]::WriteAllBytes("app.ico", [System.Convert]::FromBase64String($b64))
         }
 
     - name: 编译项目 (.NET Framework 4.7.2)
